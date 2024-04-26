@@ -30,6 +30,7 @@ resource "auth0_organization_connection" "my_org_conn" {
   organization_id            = auth0_organization.my_organization.id
   connection_id              = auth0_connection.my_connection.id
   assign_membership_on_login = true
+  show_as_button             = true
 }
 ```
 
@@ -44,6 +45,7 @@ resource "auth0_organization_connection" "my_org_conn" {
 ### Optional
 
 - `assign_membership_on_login` (Boolean) When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+- `show_as_button` (Boolean) Display connection as a button. Only available on enterprise connections.
 
 ### Read-Only
 

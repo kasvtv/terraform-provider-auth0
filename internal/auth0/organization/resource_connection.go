@@ -42,6 +42,12 @@ func NewConnectionResource() *schema.Resource {
 					"membership in the organization. When false, users must be granted membership in the organization" +
 					" before logging in with this connection.",
 			},
+			"show_as_button": {
+				Type:        schema.TypeBool,
+				Optional:    true,
+				Default:     false,
+				Description: "Display connection as a button. Only available on enterprise connections.",
+			},
 			"name": {
 				Type:        schema.TypeString,
 				Computed:    true,
@@ -63,10 +69,12 @@ func createOrganizationConnection(ctx context.Context, data *schema.ResourceData
 
 	connectionID := data.Get("connection_id").(string)
 	assignMembershipOnLogin := data.Get("assign_membership_on_login").(bool)
+	showAsButton := data.Get("show_as_button").(bool)
 
 	organizationConnection := &management.OrganizationConnection{
 		ConnectionID:            &connectionID,
 		AssignMembershipOnLogin: &assignMembershipOnLogin,
+		ShowAsButton:            &showAsButton,
 	}
 
 	if err := api.Organization.AddConnection(ctx, organizationID, organizationConnection); err != nil {
@@ -99,9 +107,11 @@ func updateOrganizationConnection(ctx context.Context, data *schema.ResourceData
 
 	connectionID := data.Get("connection_id").(string)
 	assignMembershipOnLogin := data.Get("assign_membership_on_login").(bool)
+	showAsButton := data.Get("show_as_button").(bool)
 
 	organizationConnection := &management.OrganizationConnection{
 		AssignMembershipOnLogin: &assignMembershipOnLogin,
+		ShowAsButton:            &showAsButton,
 	}
 
 	if err := api.Organization.UpdateConnection(ctx, organizationID, connectionID, organizationConnection); err != nil {

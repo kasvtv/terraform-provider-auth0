@@ -34,6 +34,7 @@ resource "auth0_organization_connection" "my_org_conn_1" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_1.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 data "auth0_organization" "my_org" {
@@ -50,6 +51,7 @@ resource "auth0_organization_connection" "my_org_conn_1" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_1.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 resource "auth0_organization_connection" "my_org_conn_2" {
@@ -58,6 +60,7 @@ resource "auth0_organization_connection" "my_org_conn_2" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_2.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 data "auth0_organization" "my_org" {
@@ -76,11 +79,13 @@ resource "auth0_organization_connections" "one_to_many" {
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_1.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_2.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 }
 `
@@ -92,6 +97,7 @@ resource "auth0_organization_connection" "my_org_conn_1" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_1.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 resource "auth0_organization_connection" "my_org_conn_2" {
@@ -100,6 +106,7 @@ resource "auth0_organization_connection" "my_org_conn_2" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_2.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 data "auth0_organization" "my_org" {
@@ -118,6 +125,7 @@ func TestAccOrganizationConnection(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("data.auth0_organization.my_org", "connections.#", "1"),
 					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "assign_membership_on_login", "false"),
+					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "show_as_button", "false"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "organization_id", "auth0_organization.my_org", "id"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "connection_id", "auth0_connection.my_connection_1", "id"),
 				),
@@ -127,6 +135,7 @@ func TestAccOrganizationConnection(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("data.auth0_organization.my_org", "connections.#", "1"),
 					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "show_as_button", "true"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "organization_id", "auth0_organization.my_org", "id"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "connection_id", "auth0_connection.my_connection_1", "id"),
 				),
@@ -136,9 +145,11 @@ func TestAccOrganizationConnection(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("data.auth0_organization.my_org", "connections.#", "2"),
 					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_1", "show_as_button", "true"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "organization_id", "auth0_organization.my_org", "id"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_1", "connection_id", "auth0_connection.my_connection_1", "id"),
 					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_2", "assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connection.my_org_conn_2", "show_as_button", "true"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_2", "organization_id", "auth0_organization.my_org", "id"),
 					resource.TestCheckTypeSetElemAttrPair("auth0_organization_connection.my_org_conn_2", "connection_id", "auth0_connection.my_connection_2", "id"),
 				),

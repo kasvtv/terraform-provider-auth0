@@ -102,11 +102,13 @@ resource "auth0_organization_connections" "one_to_many" {
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_1.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_2.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 }
 
@@ -126,6 +128,7 @@ resource "auth0_organization_connections" "one_to_many" {
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_2.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 }
 
@@ -152,6 +155,7 @@ resource "auth0_organization_connection" "my_org_conn_1" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_1.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 
 resource "auth0_organization_connection" "my_org_conn_2" {
@@ -160,6 +164,7 @@ resource "auth0_organization_connection" "my_org_conn_2" {
 	organization_id            = auth0_organization.my_org.id
 	connection_id              = auth0_connection.my_connection_2.id
 	assign_membership_on_login = true
+	show_as_button             = true
 }
 `
 
@@ -172,11 +177,13 @@ resource "auth0_organization_connections" "one_to_many" {
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_1.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 
 	enabled_connections {
 		connection_id              = auth0_connection.my_connection_2.id
 		assign_membership_on_login = true
+		show_as_button             = true
 	}
 }
 
@@ -228,9 +235,13 @@ func TestAccOrganizationConnections(t *testing.T) {
 					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.#", "2"),
 					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.0.assign_membership_on_login", "true"),
 					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.1.assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.0.show_as_button", "true"),
+					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.1.show_as_button", "true"),
 					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.#", "2"),
 					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.assign_membership_on_login", "true"),
 					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.show_as_button", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.show_as_button", "true"),
 				),
 			},
 			{
@@ -241,8 +252,10 @@ func TestAccOrganizationConnections(t *testing.T) {
 				Check: resource.ComposeTestCheckFunc(
 					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.#", "1"),
 					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.0.assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("data.auth0_organization.org_data", "connections.0.show_as_button", "true"),
 					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.#", "1"),
 					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.assign_membership_on_login", "true"),
+					resource.TestCheckResourceAttr("auth0_organization_connections.one_to_many", "enabled_connections.0.show_as_button", "true"),
 				),
 			},
 			{

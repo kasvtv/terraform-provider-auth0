@@ -55,5 +55,6 @@ Read-Only:
 
 - `assign_membership_on_login` (Boolean)
 - `connection_id` (String)
+- `show_as_button` (Boolean)
 
 

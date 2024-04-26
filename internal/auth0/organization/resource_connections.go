@@ -43,6 +43,12 @@ func NewConnectionsResource() *schema.Resource {
 								"automatically granted membership in the organization. When false, users must be " +
 								"granted membership in the organization before logging in with this connection.",
 						},
+						"show_as_button": {
+							Type:        schema.TypeBool,
+							Optional:    true,
+							Default:     false,
+							Description: "Display connection as a button. Only available on enterprise connections.",
+						},
 					},
 				},
 				Required:    true,
@@ -169,6 +175,7 @@ func updateOrganizationConnections(ctx context.Context, data *schema.ResourceDat
 		connectionToAdd := &management.OrganizationConnection{
 			ConnectionID:            auth0.String(connection["connection_id"].(string)),
 			AssignMembershipOnLogin: auth0.Bool(connection["assign_membership_on_login"].(bool)),
+			ShowAsButton:            auth0.Bool(connection["show_as_button"].(bool)),
 		}
 
 		err := api.Organization.AddConnection(ctx, organizationID, connectionToAdd)

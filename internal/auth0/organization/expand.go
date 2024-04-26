@@ -46,6 +46,7 @@ func expandOrganizationConnections(cfg cty.Value) []*management.OrganizationConn
 		connections = append(connections, &management.OrganizationConnection{
 			ConnectionID:            value.String(connectionCfg.GetAttr("connection_id")),
 			AssignMembershipOnLogin: value.Bool(connectionCfg.GetAttr("assign_membership_on_login")),
+			ShowAsButton:            value.Bool(connectionCfg.GetAttr("show_as_button")),
 		})
 
 		return stop

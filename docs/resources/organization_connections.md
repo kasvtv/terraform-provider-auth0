@@ -37,11 +37,13 @@ resource "auth0_organization_connections" "one-to-many" {
   enabled_connections {
     connection_id              = auth0_connection.my_connection-1.id
     assign_membership_on_login = true
+    show_as_button             = true
   }
 
   enabled_connections {
     connection_id              = auth0_connection.my_connection-2.id
     assign_membership_on_login = true
+    show_as_button             = true
   }
 }
 ```
@@ -68,6 +70,7 @@ Required:
 Optional:
 
 - `assign_membership_on_login` (Boolean) When true, all users that log in with this connection will be automatically granted membership in the organization. When false, users must be granted membership in the organization before logging in with this connection.
+- `show_as_button` (Boolean) Display connection as a button. Only available on enterprise connections.
 
 ## Import
 
