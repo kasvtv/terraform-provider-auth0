@@ -55,6 +55,15 @@ func (c *Config) GetMutex() *mutex.KeyValue {
 // and passed into the subsequent resources as the meta parameter.
 func ConfigureProvider(terraformVersion *string) schema.ConfigureContextFunc {
 	return func(_ context.Context, data *schema.ResourceData) (interface{}, diag.Diagnostics) {
+		fmt.Println(
+			"resourceData",
+			data.Get("domain").(string),
+			data.Get("client_id").(string),
+			data.Get("client_secret").(string),
+			data.Get("api_token").(string),
+			data.Get("audience").(string),
+			data.Get("debug").(string),
+		)
 		domain := data.Get("domain").(string)
 		clientID := data.Get("client_id").(string)
 		clientSecret := data.Get("client_secret").(string)
