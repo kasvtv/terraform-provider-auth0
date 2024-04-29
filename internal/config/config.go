@@ -62,7 +62,7 @@ func ConfigureProvider(terraformVersion *string) schema.ConfigureContextFunc {
 			data.Get("client_secret").(string),
 			data.Get("api_token").(string),
 			data.Get("audience").(string),
-			data.Get("debug").(string),
+			data.Get("debug").(bool),
 		)
 		domain := data.Get("domain").(string)
 		clientID := data.Get("client_id").(string)
